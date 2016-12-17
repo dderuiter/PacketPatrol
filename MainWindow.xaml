@@ -1,0 +1,63 @@
+﻿<Window x:Class="PacketPatrol.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        ResizeMode="NoResize"
+        Title="Packet Patrol - (Creator: D. DeRuiter)" Height="650" Width="1000">
+    
+    <Grid Margin="0,0,0,0" Background="#FF2C7386">
+        <ComboBox x:Name="cb_Interfaces" HorizontalAlignment="Left" Margin="65,10,10,0" Width="150" ToolTip="Select an interface." Height="20" VerticalAlignment="Top"/>
+        <Button x:Name="b_Start" Content="Start" Click="StartButton_Click" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,10,0,0" Width="50"/>
+
+        <DataGrid x:Name="packetDataGrid" Margin="10,40,0,10" IsReadOnly="True" MouseDoubleClick="packetDataGrid_DoubleClick" HorizontalAlignment="Left" Width="625" Background="#FF474747" BorderBrush="Silver">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="#FF474747" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Black"/>
+                            <Setter Property="Foreground" Value="#FFF1D157"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="#FFF1D157"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="dgtc_Number" Header="No." Binding="{Binding number}" CanUserReorder="False"/>
+                <DataGridTextColumn x:Name="dgtc_Time" Header="Time" Binding="{Binding timeStamp}" CanUserReorder="False"/>
+                <DataGridTextColumn x:Name="dgtc_SourceIP" Header="Source IP" Binding="{Binding sourceIP}" Width="Auto"/>
+                <DataGridTextColumn x:Name="dgtc_DestinationIP" Header="Destination IP" Binding="{Binding destinationIP}" Width="Auto"/>
+                <DataGridTextColumn x:Name="dgtc_SourcePort" Header="Source Port" Binding="{Binding sourcePort}" CanUserReorder="False"/>
+                <DataGridTextColumn x:Name="dgtc_DestinationPort" Header="Destination Port" Binding="{Binding destinationPort}" CanUserReorder="False"/>
+                <DataGridTextColumn x:Name="dgtc_Protocol" Header="Protocol" Binding="{Binding protocol}" CanUserReorder="False"/>
+                <DataGridTextColumn x:Name="dgtc_Length" Header="Length" Binding="{Binding length}" CanUserReorder="False"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <TextBlock HorizontalAlignment="Left" Margin="765,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Packet Detailed Info" Foreground="White"/>
+        <TextBlock HorizontalAlignment="Right" Margin="0,0,135,155" TextWrapping="Wrap" VerticalAlignment="Bottom" Text="Packet Bytes" Foreground="White"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White"><Run Text="Interface:"/><LineBreak/><Run/></TextBlock>
+        <CheckBox x:Name="cb_ASCII" Content="ASCII" HorizontalAlignment="Right" Margin="0,0,15,155" VerticalAlignment="Bottom" Checked="cb_ASCII_Changed" Unchecked="cb_ASCII_Changed" Foreground="White"/>
+        
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Right" Height="360" Margin="0,70,10,0" VerticalAlignment="Top" Width="325">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0">
+                <TreeView x:Name="tv_PacketInfo" Foreground="White" Background="#FFC6C6C6" ScrollViewer.CanContentScroll="True" >
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="IsExpanded" Value="True"/>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                </TreeView>
+            </ScrollViewer>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Right" Height="135" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="325">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <TextBlock x:Name="tb_Bytes" TextWrapping="Wrap" Padding="5" Text="" Background="#FFC6C6C6" Foreground="Black" ScrollViewer.CanContentScroll="True" />
+            </ScrollViewer>
+        </Border>
+        
+    </Grid>
+</Window>
